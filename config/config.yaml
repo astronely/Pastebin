@@ -1,0 +1,14 @@
+env: "local"
+database:
+  driver: postgres
+  host: localhost
+  port: 5432
+  name: pastebin
+  user: root
+  password: admin
+  sslmode: disable
+  source: postgresql://LOGIN:PASSWORD@localhost:5432/f_helper?sslmode=disable
+grpc:
+  port: 5143
+  timeout: 10h
+
