@@ -1,4 +1,3 @@
-env: "local"
 database:
   driver: postgres
   host: localhost
@@ -7,8 +6,9 @@ database:
   user: root
   password: admin
   sslmode: disable
-  source: postgresql://LOGIN:PASSWORD@localhost:5432/f_helper?sslmode=disable
+#  source: postgresql://LOGIN:PASSWORD@host:port/name?sslmode=sslmode
 grpc:
   port: 5143
   timeout: 10h
+token_ttl: 1h
 
