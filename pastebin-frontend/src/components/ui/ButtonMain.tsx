@@ -1,7 +1,8 @@
 import '../styles/Button.less'
 
 interface Props {
-    text: string
+    text: string,
+    action?: Function
 }
 
 export default function ButtonMain(props: Props) {

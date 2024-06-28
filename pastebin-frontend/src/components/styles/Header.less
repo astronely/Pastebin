@@ -1,13 +1,31 @@
 .header {
   background: #2c2c2c;
   margin-bottom: 2rem;
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
-.tabs {
+.buttons {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   padding: 10px 0;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &__text {
+    color: #f1f1f1;
+    font-family: trebuchet MS, serif;
+    font-weight: bold;
+    text-decoration: none;
+  }
 }
 
 .button {
