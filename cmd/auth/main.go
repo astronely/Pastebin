@@ -1,29 +1,44 @@
 package main
 
 import (
-	"fmt"
 	"github.com/astronely/pastebin/internal/app"
-	"github.com/astronely/pastebin/internal/config"
+	"github.com/astronely/pastebin/pkg/logger"
 	"github.com/joho/godotenv"
-	"log"
+	"log/slog"
+	"os"
+	"regexp"
 )
 
+const projectDirName = "Pastebin" // change to relevant project name
+
 func init() {
-	if err := godotenv.Load(); err != nil {
-		log.Println("No .env file found")
+	projectName := regexp.MustCompile(`^(.*` + projectDirName + `)`)
+	currentWorkDirectory, _ := os.Getwd()
+	rootPath := projectName.Find([]byte(currentWorkDirectory))
+	if err := godotenv.Load(string(rootPath) + `/.env`); err != nil {
+		slog.Error("No .env file found")
 	}
 }
 
-func main() {
-	config, err := config.NewConfig()
-	if err != nil {
-		fmt.Println(err)
-		return
+func initLogger() *slog.Logger {
+	opts := logger.PrettyHandlerOptions{
+		SlogOpts: slog.HandlerOptions{
+			Level: slog.LevelDebug,
+		},
 	}
+	handler := logger.NewPrettyHandler(os.Stdout, opts)
+	log := slog.New(handler)
+	slog.SetDefault(log)
+	return log
+}
 
-	application := app.New(config.GRPC.Port, config.TokenTTL)
-	err = application.GRPCServer.Run()
+func main() {
+	log := initLogger()
+
+	application := app.New()
+	err := application.GRPCServer.Run()
 	if err != nil {
+		log.Error("Failed to start gRPC server")
 		return
 	}
 }
