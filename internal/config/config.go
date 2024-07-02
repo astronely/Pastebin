@@ -1,20 +1,29 @@
 package config
 
 import (
-	"fmt"
+	"github.com/joho/godotenv"
 	"gopkg.in/yaml.v3"
+	"net"
 	"os"
+	"regexp"
 	"time"
 )
 
+const projectDirName = "Pastebin" // change to relevant project name
+
 type Config struct {
 	DB       DBConfig      `yaml:"database"`
-	GRPC     GRPCConfig    `yaml:"grpc"`
+	GRPC     grpcConfig    `yaml:"grpc"`
 	TokenTTL time.Duration `yaml:"token_ttl"`
 }
 
-type GRPCConfig struct {
-	Port    int           `yaml:"port"`
+type GRPCConfig interface {
+	Address() string
+}
+
+type grpcConfig struct {
+	Host    string        `yaml:"host"`
+	Port    string        `yaml:"port"`
 	Timeout time.Duration `yaml:"timeout"`
 }
 
@@ -31,7 +40,7 @@ type DBConfig struct {
 func NewConfig() (*Config, error) {
 	config := &Config{}
 
-	fmt.Println(os.Getenv("CONFIG_PATH"))
+	//log.Println(os.Getenv("CONFIG_PATH"))
 	file, err := os.Open(os.Getenv("CONFIG_PATH"))
 	if err != nil {
 		return nil, err
@@ -46,4 +55,18 @@ func NewConfig() (*Config, error) {
 	}
 
 	return config, nil
+}
+
+func InitConfig() error {
+	projectName := regexp.MustCompile(`^(.*` + projectDirName + `)`)
+	currentWorkDirectory, _ := os.Getwd()
+	rootPath := projectName.Find([]byte(currentWorkDirectory))
+	if err := godotenv.Load(string(rootPath) + `/.env`); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (cfg *grpcConfig) Address() string {
+	return net.JoinHostPort(cfg.Host, cfg.Port)
 }

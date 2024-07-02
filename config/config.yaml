@@ -8,7 +8,8 @@ database:
   sslmode: disable
 #  source: postgresql://LOGIN:PASSWORD@host:port/name?sslmode=sslmode
 grpc:
-  port: 5143
+  host: localhost
+  port: 50052
   timeout: 10h
 token_ttl: 1h
 
