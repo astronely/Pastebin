@@ -6,8 +6,9 @@ interface Props {
 }
 
 export default function ButtonMain(props: Props) {
+
     return(
-        <button className='button__main'>{props.text}</button>
+        <button onClick={() => props.action} className='button__main'>{props.text}</button>
     )
 }
 
