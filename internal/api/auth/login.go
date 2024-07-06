@@ -6,5 +6,6 @@ import (
 )
 
 func (i *Implementation) Login(ctx context.Context, req *authv1.LoginRequest) (*authv1.LoginResponse, error) {
+	//panic("implement me")
 	return &authv1.LoginResponse{Token: req.Username}, nil
 }

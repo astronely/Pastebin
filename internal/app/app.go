@@ -2,12 +2,11 @@ package app
 
 import (
 	"github.com/astronely/pastebin/internal/config"
+	authv1 "github.com/astronely/pastebin/pkg/auth_v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log/slog"
 	"net"
-
-	authv1 "github.com/astronely/pastebin/pkg/auth_v1"
 )
 
 type App struct {
@@ -17,7 +16,6 @@ type App struct {
 
 func New() *App {
 	a := &App{}
-
 	err := a.initDeps()
 	if err != nil {
 		a.serviceProvider.log.Error(err.Error())

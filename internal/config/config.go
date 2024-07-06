@@ -1,6 +1,7 @@
 package config
 
 import (
+	"flag"
 	"github.com/joho/godotenv"
 	"gopkg.in/yaml.v3"
 	"net"
@@ -24,6 +25,7 @@ type GRPCConfig interface {
 type grpcConfig struct {
 	Host    string        `yaml:"host"`
 	Port    string        `yaml:"port"`
+	TLS     bool          `yaml:"enable-tls"`
 	Timeout time.Duration `yaml:"timeout"`
 }
 
@@ -52,6 +54,17 @@ func NewConfig() (*Config, error) {
 
 	if err := decoder.Decode(&config); err != nil {
 		return nil, err
+	}
+
+	port := flag.String("port", "", "The server port")
+	enableTLS := flag.Bool("enable-tls", false, "Enable TLS")
+	flag.Parse()
+
+	if *port != "" {
+		config.GRPC.Port = *port
+	}
+	if *enableTLS {
+		config.GRPC.TLS = *enableTLS
 	}
 
 	return config, nil
