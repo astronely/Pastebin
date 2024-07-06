@@ -1,0 +1,28 @@
+.login__page {
+  background: #232323;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.input {
+  &__text {
+    color: #f1f1f1;
+  }
+
+  &__box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

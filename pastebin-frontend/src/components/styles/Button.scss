@@ -1,0 +1,35 @@
+.button {
+  &__main {
+    width: 25%;
+
+    border: 0 solid;
+    border-radius: 0.25rem;
+
+    font-family: trebuchet MS, serif;
+    color: #f1f1f1;
+
+    background: #6e6e6e;
+    transition: ease-out 0.1s;
+    &:hover {
+      //background: #6c757d;
+      background: #646464;
+      transition: ease-out 0.1s;
+    }
+  }
+
+  &__primary {
+    border: 0 solid;
+    border-radius: 0.25rem;
+    font-family: trebuchet MS, serif;
+    color: #f1f1f1;
+
+    background: #6e6e6e;
+    transition: ease-out 0.1s;
+
+    &:hover {
+      //background: #6c757d;
+      background: #646464;
+      transition: ease-out 0.1s;
+    }
+  }
+}
