@@ -1,0 +1,16 @@
+database:
+  driver: postgres
+  host: localhost
+  port: 5432
+  name: pastebin
+  user: root
+  password: admin
+  sslmode: disable
+#  source: postgresql://LOGIN:PASSWORD@host:port/name?sslmode=sslmode
+grpc:
+  host: localhost
+  port: 50052
+  enable-tls: false
+  timeout: 10h
+token_ttl: 1h
+
